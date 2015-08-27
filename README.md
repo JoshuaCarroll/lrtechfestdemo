@@ -1,2 +1,2 @@
-# lrtechfestdemo
-These files accompany a talk given by Brent Coney and Jordan Little at LRTechFest 2015.
+# Little Rock Tech Fest 2015
+
