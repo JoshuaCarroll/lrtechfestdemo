@@ -6,8 +6,8 @@ _These files accompany a talk given by Brent Coney and Jordan Little at LRTechFe
 # Modern UIs with Knockoutjs and stateful CSS
 Browsers are more capable than ever at delivering rich, native-like experiences, but the stateless nature of the web makes them rather difficult to build. Binding a data model to the UI using an MVVM (Model, View, ViewModel) javascript framework allows developers to manage complex interfaces with relatively little code. We’ll walk you through how we use Knockout (one such MVVM framework) to untangle modern UIs and how we simplify our CSS by using BEM syntax to provide “stateful” classes for our interface.
 
-## Follow along [ [link]() ]
-Interact with the prototype as we explain our thought process behind how we built it.
+## Follow along
+Interact with the prototype as we explain our thought process behind how we built it by downloading the zip file for this project (right sidebar on github's site) and opening the <code>www/index.html</code> file in your browser.
 
 ## Dig into code
 This guide assumes you have a bit of knowledge of the following libs/tech&hellip;
