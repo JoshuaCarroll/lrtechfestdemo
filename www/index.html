@@ -32,28 +32,96 @@
         </header>
 
         <section class="page">
-            <section class="panel secondary">
-                <h2>Emp of the MO</h2>
-            </section>
-            <section class="panel main">
-                <h1>Staff <a class="heading-action" href=""><i class="fa fa-fw fa-plus-circle"></i> <span>Add a staff member</span></a></h1>
+            <div class="secondary">
+                <h2 class="employee-of-the-month-heading"><i class="fa fa-fw fa-star"></i> Employee of the month</h2>
+                <section class="panel">
+                    <div class="member member--stack">
+                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/allisongrayce/128.jpg" alt="" class="member__pic" />
+                        <span class="member__name">Anayma Mae Dupp</span>
+                    </div>
+                </section>
+            </div>
+            <div class="main">
+                <section class="panel">
+                    <h1>Staff <a class="heading-action add-staff-member" href=""><i class="fa fa-plus-circle"></i> <span>Add a staff member</span></a></h1>
 
-                <div class="staff">
-                    
-                    <div class="member">
+                    <div class="staff">
                         
+                        <div class="member">
+                            <img class="member__pic" src="https://s3.amazonaws.com/uifaces/faces/twitter/allisongrayce/128.jpg" alt="" />
+                            <div class="member__info">
+                                <span class="member__name">Anayma Mae Dupp</span>
+                                <span class="member__email">anayma.mae@genericorp.com</span>
+                            </div>
+                            <div class="member__actions">
+                                <button class="member__action star" title="Makes this person employee of the month."><i class="fa fa-fw fa-star"></i></button>
+                                <button class="member__action edit"><i class="fa fa-fw fa-edit"></i></button>
+                                <button class="member__action save"><i class="fa fa-fw fa-check-circle"></i></button>
+                                <button class="member__action delete"><i class="fa fa-fw fa-trash"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="member">
+                            <img class="member__pic" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" alt="" />
+                            <div class="member__info">
+                                <span class="member__name">John Williamson</span>
+                                <span class="member__email">john@genericorp.com</span>
+                            </div>
+                            <div class="member__actions">
+                                <button class="member__action star" title="Makes this person employee of the month."><i class="fa fa-fw fa-star"></i></button>
+                                <button class="member__action edit"><i class="fa fa-fw fa-edit"></i></button>
+                                <button class="member__action save"><i class="fa fa-fw fa-check-circle"></i></button>
+                                <button class="member__action delete"><i class="fa fa-fw fa-trash"></i></button>
+                            </div>
+                        </div>
+
                     </div>
 
-                </div>
-
-            </section>
+                </section>
+            </div>
         </section>
 		
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
         <script>
             $(function(){
-
+                $('.staff').on('click', '.edit', function(e){
+                    e.preventDefault();
+                    $('.member--is-editing').removeClass('member--is-editing');
+                    $(this).parents('.member').addClass('member--is-editing');
+                    $(this).parents('.member').find('.member__name').focus();
+                    $('.member__name,.member__email').attr('contenteditable','true');
+                });
+                $('.staff').on('click', '.save', function(e){
+                    e.preventDefault();
+                    $(this).parents('.member').removeClass('member--is-editing');
+                    $('.member__name,.member__email').attr('contenteditable','false');
+                });
+                $('.staff').on('click', '.delete', function(e){
+                    e.preventDefault();
+                    $(this).parents('.member').addClass('member--is-being-deleted');
+                });
+                $('.member__name,.member__email').on('blur', function(){
+                    var memberName = $(this).parents('.member').find('.member__name');
+                    var memberEmail = $(this).parents('.member').find('.member__email');
+                    if(memberName.text() == '') {
+                        alert('Please enter a name...');
+                        memberName.focus();
+                    }
+                    if(memberEmail.text() == '') {
+                        alert('Please enter an email...');
+                        memberEmail.focus();
+                    }
+                });
+                $('.staff').on('click', '.star', function(e){
+                    e.preventDefault();
+                    $('.star').removeClass('star--is-filled');
+                    $(this).addClass('star--is-filled');
+                });
+                $('.add-staff-member').on('click', function(e){
+                    e.preventDefault();
+                    $('.staff').prepend('<div class="member member--is-editing member--was-just-added"> <img class="member__pic" src="https://s3.amazonaws.com/uifaces/faces/twitter/robertovivancos/128.jpg" alt=""> <div class="member__info"> <span class="member__name" contenteditable="">Full name&hellip;</span> <span class="member__email" contenteditable="">Email address&hellip;</span> </div><div class="member__actions"> <button class="member__action star" title="Makes this person employee of the month."><i class="fa fa-fw fa-star"></i></button> <button class="member__action edit"><i class="fa fa-fw fa-edit"></i></button> <button class="member__action save"><i class="fa fa-fw fa-check-circle"></i></button> <button class="member__action delete"><i class="fa fa-fw fa-trash"></i></button> </div></div>');
+                });
             });
         </script>
 	</body>

@@ -33,17 +33,47 @@ h1 {
 		float:right;
 		text-align: right;
 		font-size: .8125rem;
-		color: $color-text;
+		color: $color-text-light;
 
 		span {
 			@extend %hidden-on-hand;
+			@extend %default-transition;
+			padding-left:.5rem;
+			position:relative;
+			top:1px;
 		}
 
 		i {
+			@extend %default-transition;
 			@extend %vertical-align-middle;
-			font-size: 32px;
+			font-size: 2rem;
 			color: $color-success;
 		}
+
+		&:hover {
+			color: $color-text; 
+
+			i {
+				color: darken($color-success, 15%);
+			}
+		}
+	}
+}
+
+.employee-of-the-month-heading {
+	font-size: .85rem;
+	margin-bottom:.5rem;
+	text-align: center;
+
+	@include context(tablet) {
+		margin-bottom:1rem;
+		text-align: left;
+	}
+
+	i {
+		@extend %vertical-align-middle;
+		color: $color-brand;
+		font-size: 2rem;
 	}
 }
 
@@ -56,8 +86,12 @@ h1 {
 
 .site-header {
 	background: #111;
-	padding: .25rem 2rem;
+	padding: .25rem .5rem;
 	position:relative;
+
+	@include context(tablet) {
+		padding: .25rem 2rem;
+	}
 }
 	
 	.site-header #logo {
@@ -78,6 +112,10 @@ h1 {
 		color: #fff;
 		font-size: 1.125rem;
 		padding-left:1rem;
+
+		@include context(hand-only) {
+			display:none;
+		}
 	}
 
 	.slogan {
@@ -86,10 +124,16 @@ h1 {
 		position:absolute;
 		top:50%;
 		transform:translateY(-50%);
-		right:2rem;
+			-webkit-transform:translateY(-50%);
+		right:.5rem;
 		color: rgba(255,255,255,.5);
 		font-size: .75rem;
+		line-height: 1.5;
 		font-style:italic;
+
+		@include context(tablet) {
+			right:2rem;
+		}
 	}
 
 
@@ -111,11 +155,14 @@ h1 {
 .panel {
 	background: #fff;
 	border: 3px solid #ddd;
-	padding: 1rem 2rem;
+	padding: 1rem;
 	border-radius:.5rem;
-	display:inline-block;
 
 	@include context(tablet) {
+		padding: 2rem;
+	}
+
+	@include context(monitor-large) {
 		padding: 2rem 4rem;
 	}
 }

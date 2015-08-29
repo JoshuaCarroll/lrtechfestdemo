@@ -5,6 +5,8 @@
 $color-brand: #ff6b3d;
 $color-text: #111;
 	$color-text-light: #888;
+$color-editing: #fffcd9;
+$color-light-gray: #eee;
 $color-success: #39cd20;
 $color-danger: #c43a3a;
 
@@ -36,13 +38,20 @@ $color-danger: #c43a3a;
 %display-inline-block {
 	display: inline-block;
 }
+
 %vertical-align-middle {
 	vertical-align: middle;
 }
+
 %hidden-on-hand {
 	@include context(hand-only) {
 		display:none;
 	}
+}
+
+%default-transition {
+	transition:.15s ease-in-out all;
+	-webkit-transition:.15s ease-in-out all;
 }
 
 

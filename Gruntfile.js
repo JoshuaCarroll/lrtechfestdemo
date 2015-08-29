@@ -22,12 +22,23 @@ module.exports = function(grunt) {
 				    'www/style.css': 'scss/build.scss'
 				}
 			}
-		}, 
+		},
+
+		autoprefixer: {
+			dist: {
+				files: {
+					'www/style.css': 'www/style.css'
+				},
+				options: {
+					browsers: ['last 2 versions']
+				}
+			}
+		},
 
 		watch: {
-	        css: {
+	        styles: {
                 files: ['scss/*.scss'],
-                tasks: ['sass'],
+                tasks: ['sass', 'autoprefixer'],
                 options: {
                     spawn: false
                 }
