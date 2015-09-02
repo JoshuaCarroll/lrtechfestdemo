@@ -6,13 +6,13 @@ h1 .heading-action i, .employee-of-the-month-heading i, .site-header #logo, .log
   vertical-align: middle;
 }
 
-@media (max-width: 25em) {
+@media (max-width: 30em) {
   h1 .heading-action span {
     display: none;
   }
 }
 
-h1 .heading-action span, h1 .heading-action i, .member, .member__name,
+h1 .heading-action span, h1 .heading-action i, .member, .member__pic, .member__name,
 .member__email, .member__actions, .member__action i, .star {
   transition: .15s ease-in-out all;
   -webkit-transition: .15s ease-in-out all;
@@ -168,7 +168,7 @@ h1 .heading-action:hover i {
   padding-left: 1rem;
 }
 
-@media (max-width: 25em) {
+@media (max-width: 30em) {
   .logo-text {
     display: none;
   }
@@ -263,17 +263,25 @@ h1 .heading-action:hover i {
   transition: translate3d(0, 0, 0);
 }
 
-.member__pic {
-  width: 4rem;
-  height: 4rem;
-  border-radius: 1rem;
+@media (max-width: 30em) {
+  .member {
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    text-align: center;
+  }
 }
 
-@media (min-width: 47.5em) {
+.member__pic {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 1.25rem;
+  margin: 0 auto 0.5rem;
+}
+
+@media (min-width: 30em) {
   .member__pic {
-    width: 5rem;
-    height: 5rem;
-    border-radius: 1.25rem;
+    margin: auto;
   }
 }
 
@@ -285,6 +293,15 @@ h1 .heading-action:hover i {
   -webkit-flex-basis: 12rem;
       -ms-flex-preferred-size: 12rem;
           flex-basis: 12rem;
+}
+
+@media (max-width: 30em) {
+  .member__info {
+    -webkit-flex-basis: 3rem;
+        -ms-flex-preferred-size: 3rem;
+            flex-basis: 3rem;
+    padding-left: 0;
+  }
 }
 
 @media (min-width: 47.5em) {
@@ -320,11 +337,11 @@ h1 .heading-action:hover i {
           flex-grow: 1;
   border: 1px solid #eee;
   margin-top: .5rem;
-  border-radius: .5rem;
+  border-radius: 5rem;
   position: relative;
 }
 
-@media (min-width: 25em) {
+@media (min-width: 30em) {
   .member__actions {
     border: none;
     margin-top: 0;
@@ -338,14 +355,18 @@ h1 .heading-action:hover i {
   outline: none;
   cursor: pointer;
   padding: .75rem;
-  font-size: 1rem;
-  color: #888;
+  font-size: 1.5rem;
+  color: #e1e1e1;
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
 }
 
-@media (max-width: 25em) {
+.member__action .member:hover .member__action {
+  color: #888;
+}
+
+@media (max-width: 30em) {
   .member__action:nth-child(2) {
     border-left: 1px solid #eee;
     border-right: 1px solid #eee;
@@ -356,7 +377,7 @@ h1 .heading-action:hover i {
   color: #111;
 }
 
-@media (min-width: 25em) {
+@media (min-width: 30em) {
   .member__action {
     font-size: 2rem;
   }
@@ -377,10 +398,14 @@ h1 .heading-action:hover i {
   color: #ff9270;
 }
 
-.star--is-filled i {
+.star--is-filled {
   color: #ff6b3d;
   -webkit-animation: star-fill 0.5s 1;
           animation: star-fill 0.5s 1;
+}
+
+.star--is-filled i {
+  color: #ff6b3d;
   -webkit-transform: rotate(0deg);
           transform: rotate(0deg);
 }
@@ -484,8 +509,7 @@ h1 .heading-action:hover i {
   display: none;
 }
 
-.delete--is-being-confirmed i,
-.delete--is-being-confirmed:hover i {
+.delete:hover i {
   color: #c43a3a;
 }
 
@@ -508,15 +532,14 @@ h1 .heading-action:hover i {
 
 .member--is-editing {
   border: none;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.35);
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
-  padding: 2rem 0.5rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
-@media (max-width: 25em) {
+@media (min-width: 47.5em) {
   .member--is-editing {
-    padding: .5rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
 }
 
@@ -552,7 +575,7 @@ h1 .heading-action:hover i {
   }
 }
 
-@media (max-width: 25em) {
+@media (max-width: 30em) {
   .member--is-editing .member__actions {
     border: none;
   }
@@ -572,11 +595,15 @@ h1 .heading-action:hover i {
   display: block;
 }
 
+.member--is-editing .save:hover i {
+  color: #2da119;
+}
+
 .member--is-editing .save i {
   color: #39cd20;
 }
 
-@media (max-width: 25em) {
+@media (max-width: 30em) {
   .member--is-editing .save {
     font-size: 2rem;
     background-color: #39cd20;
@@ -587,8 +614,15 @@ h1 .heading-action:hover i {
   }
 }
 
+@media (min-width: 47.5em) {
+  .member--is-editing .save {
+    -webkit-transform: scale(2);
+            transform: scale(2);
+  }
+}
+
 .member--was-just-added {
-  max-height: 200px;
+  max-height: 500px;
   -webkit-animation: add-member 0.75s 1;
           animation: add-member 0.75s 1;
   animation-easing-function: ease-in-out;
@@ -630,20 +664,36 @@ h1 .heading-action:hover i {
 }
 
 .member--is-being-deleted {
-  -webkit-animation: delete-member 0.5s 1;
-          animation: delete-member 0.5s 1;
+  -webkit-animation: delete-member 0.25s 1;
+          animation: delete-member 0.25s 1;
 }
 
 @-webkit-keyframes delete-member {
   0% {
+    opacity: 1;
+    max-height: 180px;
   }
   100% {
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    max-height: 0;
+    -webkit-transform: translateX(-2rem);
+            transform: translateX(-2rem);
   }
 }
 
 @keyframes delete-member {
   0% {
+    opacity: 1;
+    max-height: 180px;
   }
   100% {
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    max-height: 0;
+    -webkit-transform: translateX(-2rem);
+            transform: translateX(-2rem);
   }
 }

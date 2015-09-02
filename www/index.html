@@ -87,19 +87,26 @@
             $(function(){
                 $('.staff').on('click', '.edit', function(e){
                     e.preventDefault();
+                    $('.member__name,.member__email').attr('contenteditable','true');
                     $('.member--is-editing').removeClass('member--is-editing');
                     $(this).parents('.member').addClass('member--is-editing');
                     $(this).parents('.member').find('.member__name').focus();
-                    $('.member__name,.member__email').attr('contenteditable','true');
                 });
                 $('.staff').on('click', '.save', function(e){
                     e.preventDefault();
                     $(this).parents('.member').removeClass('member--is-editing');
                     $('.member__name,.member__email').attr('contenteditable','false');
+                    if($(this).parents('.member').hasClass('member--was-just-added')) {
+                        $(this).parents('.member').removeClass('member--was-just-added');
+                    }
                 });
                 $('.staff').on('click', '.delete', function(e){
                     e.preventDefault();
+                    var deleteButton = $(this);
                     $(this).parents('.member').addClass('member--is-being-deleted');
+                    setTimeout(function(){
+                        deleteButton.parents('.member').remove();
+                    }, 250);
                 });
                 $('.member__name,.member__email').on('blur', function(){
                     var memberName = $(this).parents('.member').find('.member__name');
@@ -113,6 +120,13 @@
                         memberEmail.focus();
                     }
                 });
+                $('.staff').on('dblclick', '.member__name,.member__email', function(e){
+                    e.preventDefault();
+                    $('.member--is-editing').removeClass('member--is-editing');
+                    $(this).parents('.member').addClass('member--is-editing');
+                    $(this).focus();
+                    $(this).attr('contenteditable','true');
+                });
                 $('.staff').on('click', '.star', function(e){
                     e.preventDefault();
                     $('.star').removeClass('star--is-filled');
@@ -120,7 +134,11 @@
                 });
                 $('.add-staff-member').on('click', function(e){
                     e.preventDefault();
-                    $('.staff').prepend('<div class="member member--is-editing member--was-just-added"> <img class="member__pic" src="https://s3.amazonaws.com/uifaces/faces/twitter/robertovivancos/128.jpg" alt=""> <div class="member__info"> <span class="member__name" contenteditable="">Full name&hellip;</span> <span class="member__email" contenteditable="">Email address&hellip;</span> </div><div class="member__actions"> <button class="member__action star" title="Makes this person employee of the month."><i class="fa fa-fw fa-star"></i></button> <button class="member__action edit"><i class="fa fa-fw fa-edit"></i></button> <button class="member__action save"><i class="fa fa-fw fa-check-circle"></i></button> <button class="member__action delete"><i class="fa fa-fw fa-trash"></i></button> </div></div>');
+                    if( !$('.member--was-just-added').length ){
+                        $('.staff').prepend('<div class="member member--is-editing member--was-just-added"> <img class="member__pic" src="https://s3.amazonaws.com/uifaces/faces/twitter/robertovivancos/128.jpg" alt=""> <div class="member__info"> <span class="member__name" contenteditable="">Full name&hellip;</span> <span class="member__email" contenteditable="">Email address&hellip;</span> </div><div class="member__actions"> <button class="member__action star" title="Makes this person employee of the month."><i class="fa fa-fw fa-star"></i></button> <button class="member__action edit"><i class="fa fa-fw fa-edit"></i></button> <button class="member__action save"><i class="fa fa-fw fa-check-circle"></i></button> <button class="member__action delete"><i class="fa fa-fw fa-trash"></i></button> </div></div>');
+                    }
+                    $('.member--was-just-added').find('.member__name').focus();
+                    
                 });
             });
         </script>

@@ -10,17 +10,22 @@
 	flex-wrap: wrap;
 	align-items:center;
 	transition:translate3d(0,0,0);
+
+	@include context(hand-only) {
+		flex-direction:column;
+		text-align:center;
+	}
 }
 	
 	.member__pic {
-		width: 4rem;
-		height: 4rem;
-		border-radius:1rem;
+		@extend %default-transition;
+		width: 5rem;
+		height: 5rem;
+		border-radius:1.25rem;
+		margin:0 auto .5rem;
 
-		@include context(tablet) {
-			width: 5rem;
-			height: 5rem;
-			border-radius:1.25rem;
+		@include context(small-tablet) {
+			margin:auto;
 		}
 	}
 	
@@ -28,6 +33,11 @@
 		padding-left:.5rem;
 		flex:1;
 		flex-basis:12rem;
+
+		@include context(hand-only) {
+			flex-basis:3rem;
+			padding-left:0;
+		}
 
 		@include context(tablet) {
 			padding-left:1rem;
@@ -57,7 +67,7 @@
 		flex-grow:1;
 		border:1px solid $color-light-gray;
 		margin-top:.5rem;
-		border-radius:.5rem;
+		border-radius:5rem;
 		position:relative;
 
 		@include context(small-tablet) {
@@ -73,9 +83,13 @@
 			outline:none;
 			cursor:pointer;
 			padding:.75rem;
-			font-size: 1rem;
-			color: $color-text-light;
+			font-size: 1.5rem;
+			color: lighten($color-text-light,35%);
 			flex: 1;
+
+			.member:hover .member__action {
+				color: $color-text-light;
+			}
 
 			&:nth-child(2) {
 				@include context(hand-only) {
@@ -109,9 +123,11 @@
 		}
 
 			.star--is-filled {
+				color: $color-brand;
+				animation:star-fill .5s 1;
+
 				i {
 					color: $color-brand;
-					animation:star-fill .5s 1;
 					transform:rotate(0deg);
 				}
 
@@ -164,15 +180,12 @@
 		}
 
 		.delete {
-			
-		}
-
-			.delete--is-being-confirmed,
-			.delete--is-being-confirmed:hover {
+			&:hover {
 				i {
 					color: $color-danger;
 				}
 			}
+		}
 	
 
 .member--stack {
@@ -192,12 +205,12 @@
 
 .member--is-editing {
 	border:none;
-	box-shadow:0 2px 15px rgba(0,0,0,.35);
-	transform:scale(1.1);
-	padding:2rem .5rem;
+	padding-top:2rem;
+	padding-bottom:2rem;
 
-	@include context(hand-only) {
-		padding:.5rem;
+	@include context(tablet) {
+		padding-top:3rem;
+		padding-bottom:3rem;
 	}
 
 	.member__name,
@@ -239,6 +252,10 @@
 	.save {
 		display:block;
 
+		&:hover i {
+			color: darken($color-success,10%);
+		}
+
 		i {
 			color: $color-success;
 		}
@@ -252,11 +269,15 @@
 				color: #fff;
 			}
 		}
+
+		@include context(tablet) {
+			transform:scale(2);
+		}
 	}
 }
 
 .member--was-just-added {
-	max-height:200px;
+	max-height:500px;
 	animation: add-member .75s 1;
 	animation-easing-function: ease-in-out;
 
@@ -280,16 +301,22 @@
 	}
 
 .member--is-being-deleted {
-	animation: delete-member .5s 1;
+	animation: delete-member .25s 1;
+		@keyframes delete-member {
+			0% {
+				opacity:1;
+				max-height:180px;
+			}
+			100% {
+				opacity:0;
+				padding-top:0;
+				padding-bottom:0;
+				max-height: 0;
+				transform:translateX(-2rem);
+			}
+		}
 }
-	@keyframes delete-member {
-		0% {
-			
-		}
-		100% {
-
-		}
-	}
+	
 
 
 
