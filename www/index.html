@@ -1,90 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="utf-8" />
 
     <title>GeneriCorp Staff Manager v1.0</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1, user-scalable=no"
+    />
     <!-- Google Font -->
-    <link href="http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css"
+    />
     <!-- FontAwesome Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet" type="text/css"
+    />
     <!-- GeneriCorp's CSS -->
     <link href="style.css" rel="stylesheet" type="text/css" />
 
 </head>
 
-	<body>
+<body>
 
-        <header class="site-header">
-            <svg version="1.1" id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="0 0 792 612" style="enable-background:new 0 0 792 612;" xml:space="preserve">
-                <path class="st0" d="M722.4,240.9c-22-38.7-63-64.8-110-64.8c-70.3,0-127.3,58.2-127.3,129.9s57,129.9,127.3,129.9
+    <header class="site-header">
+        <svg version="1.1" id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        viewBox="0 0 792 612" style="enable-background:new 0 0 792 612;" xml:space="preserve">
+            <path class="st0" d="M722.4,240.9c-22-38.7-63-64.8-110-64.8c-70.3,0-127.3,58.2-127.3,129.9s57,129.9,127.3,129.9
     c47,0,88-26.1,110-64.8H792c-26.3,75.6-96.7,129.8-179.8,129.8s-153.5-54.2-179.8-129.8h-60.3c-26.3,75.6-96.7,129.8-179.8,129.8
     C86.9,500.9,1.4,413.6,1.4,306s85.5-194.9,190.9-194.9c83,0,153.5,54.2,179.8,129.8h-69.7c-22-38.7-63-64.8-110-64.8
     c-70.3,0-127.3,58.2-127.3,129.9s57,129.9,127.3,129.9c47,0,88-26.1,110-64.8h-59.2V306h178.2c0-107.6,85.5-194.9,190.9-194.9
-    c83,0,153.5,54.2,179.8,129.8H722.4z"/>
-            </svg>
-            <span class="logo-text">GeneriCorp</span>
-            <span class="slogan">Dedicated to being legally nondescript…for you</span>
-        </header>
+    c83,0,153.5,54.2,179.8,129.8H722.4z" />
+        </svg>
+        <span class="logo-text">GeneriCorp</span>
+        <span class="slogan">Dedicated to being legally nondescript…for you</span>
+    </header>
 
-        <section class="page">
-            <div class="secondary">
-                <h2 class="employee-of-the-month-heading"><i class="fa fa-fw fa-star"></i> Employee of the month</h2>
-                <section class="panel">
-                    <div class="member member--stack">
-                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/allisongrayce/128.jpg" alt="" class="member__pic" />
-                        <span class="member__name">Anayma Mae Dupp</span>
+    <section class="page">
+        <div class="secondary">
+            <h2 class="employee-of-the-month-heading"><i class="fa fa-fw fa-star"></i> Employee of the month</h2>
+            <section class="panel">
+                <div class="member member--stack">
+                    <img src="https://s3.amazonaws.com/uifaces/faces/twitter/allisongrayce/128.jpg" alt="" class="member__pic" />
+                    <span class="member__name">Anayma Mae Dupp</span>
+                </div>
+            </section>
+        </div>
+        <div class="main">
+            <section class="panel">
+                <h1>Staff <a class="heading-action add-staff-member" href="" data-bind="click: toggleShowAddStaffMember"><i class="fa fa-plus-circle"></i> <span>Add a staff member</span></a></h1>
+
+                <div class="staff">
+                    <div class="member member--is-editing member--was-just-added" data-bind="visible: showAddStaffMember">
+                        <img class="member__pic" src="https://s3.amazonaws.com/uifaces/faces/twitter/robertovivancos/128.jpg" alt="" data-bind="attr: { src: newStaffMember().picUrl }">
+                        <div class="member__info"> <span class="member__name" contenteditable="true" data-bind="inlineEdit: newStaffMember().name"></span>
+                            <span class="member__email" contenteditable="true" data-bind="inlineEdit: newStaffMember().email"></span>
+                        </div>
+                        <div class="member__actions">
+                            <button class="member__action star" title="Makes this person employee of the month."><i class="fa fa-fw fa-star"></i></button>
+                            <button class="member__action edit"><i class="fa fa-fw fa-edit"></i></button>
+                            <button class="member__action save" data-bind="click: addStaffMember"><i class="fa fa-fw fa-check-circle"></i></button>
+                            <button class="member__action delete"><i class="fa fa-fw fa-trash"></i></button>
+                        </div>
                     </div>
-                </section>
-            </div>
-            <div class="main">
-                <section class="panel">
-                    <h1>Staff <a class="heading-action add-staff-member" href=""><i class="fa fa-plus-circle"></i> <span>Add a staff member</span></a></h1>
 
-                    <div class="staff">
-                        
+                    <div data-bind="foreach: staffMembers">
                         <div class="member">
-                            <img class="member__pic" src="https://s3.amazonaws.com/uifaces/faces/twitter/allisongrayce/128.jpg" alt="" />
+                            <img class="member__pic" src="https://s3.amazonaws.com/uifaces/faces/twitter/allisongrayce/128.jpg" alt="" data-bind="attr: { src: picUrl }" />
                             <div class="member__info">
-                                <span class="member__name">Anayma Mae Dupp</span>
-                                <span class="member__email">anayma.mae@genericorp.com</span>
+                                <span class="member__name" data-bind="inlineEdit: name"></span>
+                                <span class="member__email" data-bind="inlineEdit: email"></span>
                             </div>
                             <div class="member__actions">
                                 <button class="member__action star" title="Makes this person employee of the month."><i class="fa fa-fw fa-star"></i></button>
                                 <button class="member__action edit"><i class="fa fa-fw fa-edit"></i></button>
                                 <button class="member__action save"><i class="fa fa-fw fa-check-circle"></i></button>
-                                <button class="member__action delete"><i class="fa fa-fw fa-trash"></i></button>
+                                <button class="member__action delete" data-bind="click: $parent.removeStaffMember"><i class="fa fa-fw fa-trash"></i></button>
                             </div>
                         </div>
-
-                        <div class="member">
-                            <img class="member__pic" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" alt="" />
-                            <div class="member__info">
-                                <span class="member__name">John Williamson</span>
-                                <span class="member__email">john@genericorp.com</span>
-                            </div>
-                            <div class="member__actions">
-                                <button class="member__action star" title="Makes this person employee of the month."><i class="fa fa-fw fa-star"></i></button>
-                                <button class="member__action edit"><i class="fa fa-fw fa-edit"></i></button>
-                                <button class="member__action save"><i class="fa fa-fw fa-check-circle"></i></button>
-                                <button class="member__action delete"><i class="fa fa-fw fa-trash"></i></button>
-                            </div>
-                        </div>
-
                     </div>
+                </div>
+            </section>
+        </div>
+    </section>
 
-                </section>
-            </div>
-        </section>
-		
-        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
-        <script>
-            $(function(){
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
+    <script src="bindings.js"></script>
+    <script>
+        var staffMember = function(){
+          var name = ko.observable('Full name…');
+          var email = ko.observable('Email address…');
+          var picUrl = ko.observable('');
+          
+          $.get("http://uifaces.com/api/v1/random", function(data){
+             picUrl(data.image_urls.epic); 
+          });
+          
+          return {
+              name: name,
+              email: email,
+              picUrl: picUrl
+          }  
+        };
+        
+        var staffViewModel = (function(){
+            var staffMembers = ko.observableArray([]);
+            var newStaffMember = ko.observable(new staffMember());
+            var showAddStaffMember = ko.observable(false);
+            var toggleShowAddStaffMember = function(){
+              if(showAddStaffMember()){
+                  showAddStaffMember(false);
+              }else{
+                  showAddStaffMember(true);
+              }  
+            };
+            
+            var addStaffMember = function(){
+              staffMembers.push(newStaffMember());
+              showAddStaffMember(false);
+              newStaffMember(new staffMember());  
+            };
+            
+            var removeStaffMember = function(memberToRemove){
+                staffMembers.remove(memberToRemove);
+            };
+            
+            
+            
+            return {
+                staffMembers: staffMembers,
+                newStaffMember: newStaffMember,
+                addStaffMember: addStaffMember,
+                removeStaffMember: removeStaffMember,
+                showAddStaffMember: showAddStaffMember,
+                toggleShowAddStaffMember: toggleShowAddStaffMember
+            }
+        })();
+        $(function(){
+            ko.applyBindings(staffViewModel);
+        });
+    </script>
+<!--
+        $(function(){
                 $('.staff').on('click', '.edit', function(e){
                     e.preventDefault();
                     $('.member__name,.member__email').attr('contenteditable','true');
@@ -140,7 +197,7 @@
                     $('.member--was-just-added').find('.member__name').focus();
                     
                 });
-            });
-        </script>
-	</body>
+                -->
+</body>
+
 </html>
