@@ -44,7 +44,7 @@ ko.bindingHandlers.inlineEdit = {
 		}
         $(element).on("input", function (e) {
             valueAccessor($(this).text());
-            //it's loosing the binding context because value is the first on init
+            
         });
         //$(element).text(ko.unwrap(valueAccessor()));
 	}

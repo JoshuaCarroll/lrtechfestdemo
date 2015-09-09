@@ -40,7 +40,8 @@
             <h2 class="employee-of-the-month-heading"><i class="fa fa-fw fa-star"></i> Employee of the month</h2>
             <section class="panel">
                 <div class="member member--stack">
-                    <img src="https://s3.amazonaws.com/uifaces/faces/twitter/allisongrayce/128.jpg" alt="" class="member__pic" data-bind="attr: { src: picUrl }" />
+                    <img src="https://s3.amazonaws.com/uifaces/faces/twitter/allisongrayce/128.jpg" alt="" class="member__pic" data-bind="attr: { src: picUrl }"
+                    />
                     <span class="member__name" data-bind="text: name"></span>
                 </div>
             </section>
@@ -50,31 +51,37 @@
                 <h1>Staff <a class="heading-action add-staff-member" href="" data-bind="click: toggleShowAddStaffMember"><i class="fa fa-plus-circle"></i> <span>Add a staff member</span></a></h1>
 
                 <div class="staff">
-                    <div class="member member--is-editing member--was-just-added" data-bind="visible: showAddStaffMember, with: newStaffMember">
-                        <img class="member__pic" src="https://s3.amazonaws.com/uifaces/faces/twitter/robertovivancos/128.jpg" alt="" data-bind="attr: { src: picUrl }">
-                        <div class="member__info">
-                            <input type="text" data-bind="textInput: name" class="member__name" onmouseup="return false;" />
-                            <input type="text" data-bind="textInput: email" class="member__email" onmouseup="return false;" />
-                        </div>
-                        <div class="member__actions">
-                            <button class="member__action star" title="Makes this person employee of the month."><i class="fa fa-fw fa-star"></i></button>
-                            <button class="member__action edit"><i class="fa fa-fw fa-edit"></i></button>
-                            <button class="member__action save" data-bind="click: $root.addStaffMember"><i class="fa fa-fw fa-check-circle"></i></button>
-                            <button class="member__action delete"><i class="fa fa-fw fa-trash"></i></button>
-                        </div>
+                    <form data-bind="submit: addStaffMember">
+                        <div class="member member--is-editing member--was-just-added" data-bind="visible: showAddStaffMember, with: newStaffMember">
+                            <img class="member__pic" src="https://s3.amazonaws.com/uifaces/faces/twitter/robertovivancos/128.jpg" alt="" data-bind="attr: { src: picUrl }">
+                            <div class="member__info">
+                                <input type="text" data-bind="textInput: name" class="member__name" onmouseup="return false;" />
+                                <input type="text" data-bind="textInput: email" class="member__email" onmouseup="return false;" />
+                            </div>
+                            <div class="member__actions">
+                                <button class="member__action star" title="Makes this person employee of the month."><i class="fa fa-fw fa-star"></i></button>
+                                <button class="member__action edit"><i class="fa fa-fw fa-edit"></i></button>
+                                <button class="member__action save" type="submit"><i class="fa fa-fw fa-check-circle"></i></button>
+                                <button class="member__action delete"><i class="fa fa-fw fa-trash"></i></button>
+                            </div>
+                    </form>
                     </div>
 
                     <div data-bind="foreach: staffMembers">
-                        <div class="member">
+                        <div class="member" data-bind="css: { 'member--is-editing': editing() }">
                             <img class="member__pic" src="https://s3.amazonaws.com/uifaces/faces/twitter/allisongrayce/128.jpg" alt="" data-bind="attr: { src: picUrl }"
                             />
-                            <div class="member__info">
-                                <span class="member__name" data-bind="inlineEdit: name"></span>
-                                <span class="member__email" data-bind="inlineEdit: email"></span>
+                            <div class="member__info" data-bind="visible: !editing()">
+                                <span class="member__name" data-bind="text: name"></span>
+                                <a href="#" class="member__email" data-bind="attr: { 'href': 'mailto:' + email() + '?subject=sup bruh?' }, text: email"></a>
+                            </div>
+                            <div class="member__info" data-bind="visible: editing">
+                                <input type="text" class="member__name" data-bind="textInput: name" />
+                                <input type="text" class="member__email" data-bind="textInput: email" />
                             </div>
                             <div class="member__actions">
                                 <button class="member__action star" title="Makes this person employee of the month." data-bind="click: $root.toggleEmployeeOfTheMonth"><i class="fa fa-fw fa-star" data-bind="css: { 'star--is-filled': employeeOfTheMonth() }"></i></button>
-                                <button class="member__action edit"><i class="fa fa-fw fa-edit"></i></button>
+                                <button class="member__action edit" data-bind="click: toggleEditing"><i class="fa fa-fw fa-edit"></i></button>
                                 <button class="member__action save"><i class="fa fa-fw fa-check-circle"></i></button>
                                 <button class="member__action delete" data-bind="click: $parent.removeStaffMember"><i class="fa fa-fw fa-trash"></i></button>
                             </div>
@@ -95,6 +102,14 @@
           var email = ko.observable('Email address…');
           var picUrl = ko.observable('');
           var employeeOfTheMonth = ko.observable(false);
+          var editing = ko.observable(false);
+          var toggleEditing = function(){
+                if(editing()){
+                    editing(false);
+                }else{
+                    editing(true);
+                }     
+          };
             
           if(memberData){
               name(ko.unwrap(memberData.name));
@@ -110,50 +125,54 @@
               name: name,
               email: email,
               picUrl: picUrl,
-              employeeOfTheMonth: employeeOfTheMonth
+              employeeOfTheMonth: employeeOfTheMonth,
+              editing: editing,
+              toggleEditing: toggleEditing
           }  
         });
         
         var staffViewModel = (function(){
-            var staffMembers = ko.observableArray([]);
-            var newStaffMember = ko.observable(staffMember());
-            var showAddStaffMember = ko.observable(false);
-            var showEmployeeOfTheMonth = ko.observable(false);
-            var toggleShowAddStaffMember = function(){
-              if(showAddStaffMember()){
-                  showAddStaffMember(false);
+            var self = this;
+            self.staffMembers = ko.observableArray([]);
+            self.newStaffMember = ko.observable(staffMember());
+            self.showAddStaffMember = ko.observable(false);
+            self.showEmployeeOfTheMonth = ko.observable(false);
+            self.toggleShowAddStaffMember = function(){
+              if(self.showAddStaffMember()){
+                  self.showAddStaffMember(false);
               }else{
-                  showAddStaffMember(true);
+                  self.showAddStaffMember(true);
               }  
             };
             
-            var employeeOfTheMonth = ko.computed(function(){
+            self.employeeOfTheMonth = ko.computed(function(){
                 var eotm;
                 ko.utils.arrayForEach(staffMembers(), function(member){
                     if(member.employeeOfTheMonth()){
-                        showEmployeeOfTheMonth(true);
+                        self.showEmployeeOfTheMonth(true);
                         eotm = member;
                     }
                 });
                 if(eotm === undefined){
+                    //empty staff member
                     eotm = staffMember();
-                    showEmployeeOfTheMonth(false);
+                    self.showEmployeeOfTheMonth(false);
                 }
                 return eotm;
             });
             
-            var addStaffMember = function(){
-              staffMembers.push(newStaffMember());
-              showAddStaffMember(false);
-              newStaffMember(staffMember());  
+            self.addStaffMember = function(){
+              self.staffMembers.push(newStaffMember());
+              self.showAddStaffMember(false);
+              self.newStaffMember(staffMember());  
             };
             
-            var removeStaffMember = function(memberToRemove){
-                staffMembers.remove(memberToRemove);
+            self.removeStaffMember = function(memberToRemove){
+                self.staffMembers.remove(memberToRemove);
             };
             
-            var toggleEmployeeOfTheMonth = function(memberToMakeEmployeeOfTheMonth){
-                ko.utils.arrayForEach(staffMembers(), function(member){
+            self.toggleEmployeeOfTheMonth = function(memberToMakeEmployeeOfTheMonth){
+                ko.utils.arrayForEach(self.staffMembers(), function(member){
                     if(member === memberToMakeEmployeeOfTheMonth){
                         if(member.employeeOfTheMonth()){
                             memberToMakeEmployeeOfTheMonth.employeeOfTheMonth(false);
