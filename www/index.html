@@ -68,7 +68,7 @@
                     </div>
 
                     <div data-bind="foreach: staffMembers">
-                        <div class="member" data-bind="css: { 'member--is-editing': editing() }">
+                        <div class="member" data-bind="css: { 'member--is-editing': editing(), 'member--is-being-deleted' : isBeingDeleted() }">
                             <img class="member__pic" src="https://s3.amazonaws.com/uifaces/faces/twitter/allisongrayce/128.jpg" alt="" data-bind="attr: { src: picUrl }"
                             />
                             <div class="member__info" data-bind="visible: !editing()">
@@ -106,6 +106,7 @@
           var picUrl = ko.observable('');
           var employeeOfTheMonth = ko.observable(false);
           var editing = ko.observable(false);
+          var isBeingDeleted = ko.observable(false);
           var toggleEditing = function(){
                 if(editing()){
                     editing(false);
@@ -135,7 +136,8 @@
               employeeOfTheMonth: employeeOfTheMonth,
               editing: editing,
               toggleEditing: toggleEditing,
-              saveEdit: saveEdit
+              saveEdit: saveEdit,
+              isBeingDeleted: isBeingDeleted
           }  
         });
         
@@ -176,7 +178,11 @@
             };
             
             self.removeStaffMember = function(memberToRemove){
-                self.staffMembers.remove(memberToRemove);
+                memberToRemove.isBeingDeleted(true);
+                setTimeout(function(){
+                    self.staffMembers.remove(memberToRemove);
+                }, 250);
+                
             };
             
             self.toggleEmployeeOfTheMonth = function(memberToMakeEmployeeOfTheMonth){
