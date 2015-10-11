@@ -77,8 +77,8 @@
                             </div>
                             <div class="member__info" data-bind="visible: editing">
                                 <form data-bind="submit: saveEdit">
-                                    <input type="text" class="member__name" data-bind="textInput: name" />
-                                    <input type="text" class="member__email" data-bind="textInput: email" />
+                                    <input type="text" class="member__name" data-bind="textInput: editName" />
+                                    <input type="text" class="member__email" data-bind="textInput: editEmail" />
                                     <button type="submit" style="display:none;"></button>
                                 </form>
                             </div>
@@ -103,6 +103,14 @@
         var staffMember = (function(memberData){
           var name = ko.observable('Full name…');
           var email = ko.observable('Email address…');
+          var editName = ko.observable(name());
+          var editEmail = ko.observable(email());
+          name.subscribe(function(newValue){
+             editName(newValue); 
+          });
+          email.subscribe(function(newValue){
+             editEmail(newValue); 
+          });
           var picUrl = ko.observable('');
           var employeeOfTheMonth = ko.observable(false);
           var editing = ko.observable(false);
@@ -116,6 +124,8 @@
           };
           
           var saveEdit = function(){
+              name(editName());
+              email(editEmail());
               toggleEditing();
           };
             
@@ -124,8 +134,8 @@
               email(ko.unwrap(memberData.email));
               picUrl(ko.unwrap(memberData.picUrl));
           }else{
-               $.get("http://uifaces.com/api/v1/random", function(data){
-                    picUrl(data.image_urls.epic); 
+               $.get("https://randomuser.me/api/", function(data){
+                    picUrl(data.results[0].user.picture.thumbnail);
                 });
           }
           
@@ -137,7 +147,9 @@
               editing: editing,
               toggleEditing: toggleEditing,
               saveEdit: saveEdit,
-              isBeingDeleted: isBeingDeleted
+              isBeingDeleted: isBeingDeleted,
+              editName: editName,
+              editEmail: editEmail
           }  
         });
         
