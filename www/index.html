@@ -36,10 +36,10 @@
     </header>
 
     <section class="page">
-        <div class="secondary" data-bind="visible: showEmployeeOfTheMonth, with: employeeOfTheMonth">
+        <div class="secondary">
             <h2 class="employee-of-the-month-heading"><i class="fa fa-fw fa-star"></i> Employee of the month</h2>
             <section class="panel">
-                <div class="member member--stack">
+                <div class="member member--stack" data-bind="visible: showEmployeeOfTheMonth, with: employeeOfTheMonth">
                     <img src="https://s3.amazonaws.com/uifaces/faces/twitter/allisongrayce/128.jpg" alt="" class="member__pic" data-bind="attr: { src: picUrl }"
                     />
                     <span class="member__name" data-bind="text: name"></span>
@@ -48,8 +48,13 @@
         </div>
         <div class="main">
             <section class="panel">
-                <h1>Staff <a class="heading-action add-staff-member" href="" data-bind="click: toggleShowAddStaffMember"><i class="fa fa-plus-circle"></i> <span>Add a staff member</span></a></h1>
-
+                <h1>
+                    Staff 
+                    <a class="heading-action add-staff-member" href="" data-bind="click: toggleShowAddStaffMember">
+                        <i class="fa fa-plus-circle"></i> 
+                        <span>Add a staff member</span>
+                    </a>
+                </h1>
                 <div class="staff">
                     <form data-bind="submit: addStaffMember">
                         <div class="member member--is-editing member--was-just-added" data-bind="visible: showAddStaffMember, with: newStaffMember">
@@ -62,30 +67,27 @@
                                 <button class="member__action star" title="Makes this person employee of the month."><i class="fa fa-fw fa-star"></i></button>
                                 <button class="member__action edit"><i class="fa fa-fw fa-edit"></i></button>
                                 <button class="member__action save" type="submit"><i class="fa fa-fw fa-check-circle"></i></button>
-                                <button class="member__action delete"><i class="fa fa-fw fa-trash"></i></button>
+                                <button class="member__action delete" data-bind="click: toggleShowAddStaffMember"><i class="fa fa-fw fa-times"></i></button>
                             </div>
+                        </div>
                     </form>
-                    </div>
 
                     <div data-bind="foreach: staffMembers">
                         <div class="member" data-bind="css: { 'member--is-editing': editing(), 'member--is-being-deleted' : isBeingDeleted() }">
                             <img class="member__pic" src="https://s3.amazonaws.com/uifaces/faces/twitter/allisongrayce/128.jpg" alt="" data-bind="attr: { src: picUrl }"
                             />
-                            <div class="member__info" data-bind="visible: !editing()">
-                                <span class="member__name" data-bind="text: name"></span>
-                                <a href="#" class="member__email" data-bind="attr: { 'href': 'mailto:' + email() + '?subject=sup bruh?' }, text: email"></a>
-                            </div>
-                            <div class="member__info" data-bind="visible: editing">
+                            <div class="member__info">
                                 <form data-bind="submit: saveEdit">
-                                    <input type="text" class="member__name" data-bind="textInput: editName" />
-                                    <input type="text" class="member__email" data-bind="textInput: editEmail" />
-                                    <button type="submit" style="display:none;"></button>
+                                    <input type="text" class="member__name" data-bind="textInput: editName, disable: !editing()" />
+                                    <input type="text" class="member__email" data-bind="textInput: editEmail, disable: !editing()" />
+                                    <!-- button el for a free 'Enter' submit -->
+                                    <button type="submit" style="display:none"></button>
                                 </form>
                             </div>
                             <div class="member__actions">
                                 <button class="member__action star" title="Makes this person employee of the month." data-bind="click: $root.toggleEmployeeOfTheMonth"><i class="fa fa-fw fa-star" data-bind="css: { 'star--is-filled': employeeOfTheMonth() }"></i></button>
                                 <button class="member__action edit" data-bind="click: toggleEditing"><i class="fa fa-fw fa-edit"></i></button>
-                                <button class="member__action save"><i class="fa fa-fw fa-check-circle"></i></button>
+                                <button class="member__action save" data-bind="click: saveEdit"><i class="fa fa-fw fa-check-circle"></i></button>
                                 <button class="member__action delete" data-bind="click: $parent.removeStaffMember"><i class="fa fa-fw fa-trash"></i></button>
                             </div>
                         </div>
@@ -227,6 +229,10 @@
             ko.applyBindings(staffViewModel);
             $(document).on("focus", ".member__info input", function(e){
                 $(this).select();
+            });
+            $('[data-bind="dump: staffViewModel"]').addClass('shrunk');
+            $('[data-bind="dump: staffViewModel"]').on('click', function(e){
+                $(this).toggleClass('shrunk');
             });
         });
     </script>

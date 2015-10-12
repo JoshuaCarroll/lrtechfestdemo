@@ -18,18 +18,38 @@ h1 .heading-action span, h1 .heading-action i, .member, .member__pic, .member__n
   -webkit-transition: .15s ease-in-out all;
 }
 
+[data-bind="dump: staffViewModel"] {
+  display: none;
+}
+
 @media (min-width: 47.5em) {
   [data-bind="dump: staffViewModel"] {
+    display: block;
+    cursor: s-resize;
     position: fixed;
     z-index: 9999;
     bottom: 0;
     right: 0;
     background-color: rgba(0, 0, 0, 0.75);
     color: #39ff14;
-    font-family: monospace;
+    font-family: monaco,monospace;
     line-height: 1.3;
-    font-size: 13px;
+    font-size: 11px;
     padding: 20px;
+    height: 100%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+  [data-bind="dump: staffViewModel"].shrunk {
+    -webkit-transform: translateY(95%);
+            transform: translateY(95%);
+    background: #000;
+    overflow: hidden;
+    cursor: n-resize;
+  }
+  [data-bind="dump: staffViewModel"].shrunk:hover {
+    -webkit-transform: translateY(92%);
+            transform: translateY(92%);
   }
 }
 
@@ -278,25 +298,16 @@ h1 .heading-action:hover i {
   transition: translate3d(0, 0, 0);
 }
 
-@media (max-width: 30em) {
-  .member {
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    text-align: center;
-  }
-}
-
 .member__pic {
   width: 5rem;
   height: 5rem;
   border-radius: 1.25rem;
-  margin: 0 auto 0.5rem;
+  margin: 0 auto;
 }
 
 @media (min-width: 30em) {
   .member__pic {
-    margin: auto;
+    margin: 0 auto 0.5rem;
   }
 }
 
@@ -308,15 +319,6 @@ h1 .heading-action:hover i {
   -webkit-flex-basis: 12rem;
       -ms-flex-preferred-size: 12rem;
           flex-basis: 12rem;
-}
-
-@media (max-width: 30em) {
-  .member__info {
-    -webkit-flex-basis: 3rem;
-        -ms-flex-preferred-size: 3rem;
-            flex-basis: 3rem;
-    padding-left: 0;
-  }
 }
 
 @media (min-width: 47.5em) {
@@ -331,6 +333,14 @@ h1 .heading-action:hover i {
 .member__name,
 .member__email {
   display: block;
+  border: none;
+  width: 100%;
+}
+
+.member__name:disabled,
+.member__email:disabled {
+  opacity: 1;
+  padding: 0;
 }
 
 .member__name {
@@ -431,13 +441,6 @@ h1 .heading-action:hover i {
           transform: translateY(0);
 }
 
-.star--is-filled:active {
-  -webkit-animation: nuh-uh 0.25s 1;
-          animation: nuh-uh 0.25s 1;
-  -webkit-transform: translateX(0);
-          transform: translateX(0);
-}
-
 @-webkit-keyframes star-fill {
   0% {
     color: black;
@@ -471,52 +474,6 @@ h1 .heading-action:hover i {
     color: #ff6b3d;
     -webkit-transform: rotate(74deg) translateY(0);
             transform: rotate(74deg) translateY(0);
-  }
-}
-
-@-webkit-keyframes nuh-uh {
-  0% {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-  }
-  25% {
-    -webkit-transform: translateX(0.2rem);
-            transform: translateX(0.2rem);
-  }
-  50% {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-  }
-  75% {
-    -webkit-transform: translateX(0.2rem);
-            transform: translateX(0.2rem);
-  }
-  100% {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-  }
-}
-
-@keyframes nuh-uh {
-  0% {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-  }
-  25% {
-    -webkit-transform: translateX(0.2rem);
-            transform: translateX(0.2rem);
-  }
-  50% {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-  }
-  75% {
-    -webkit-transform: translateX(0.2rem);
-            transform: translateX(0.2rem);
-  }
-  100% {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
   }
 }
 
@@ -564,12 +521,21 @@ h1 .heading-action:hover i {
   cursor: text;
   padding: .5rem;
   font-size: 1rem;
+  border: none;
   border-bottom: 1px solid #d9c800;
   overflow: hidden;
   -webkit-animation: pulse 0.55s infinite;
           animation: pulse 0.55s infinite;
   -webkit-animation-direction: alternate;
           animation-direction: alternate;
+  border-radius: 0;
+}
+
+@media (min-width: 62.5em) {
+  .member--is-editing .member__name,
+  .member--is-editing .member__email {
+    font-size: 1.35rem;
+  }
 }
 
 @-webkit-keyframes pulse {

@@ -28,5 +28,5 @@ E.g. <code>cd ~/Code</code>
 
 # GeneriCorp Staff Manager v1.0
 So here's what we're building&hellip;
-<img src="http://i.imgur.com/r76zIcl.png" alt="" />
-Looks like we have a straightfoward list of staff members, a way to add new ones, edit, delete, the usual actions, as well as an Employee of the Month denoted by a colored star. Clicking the edit icon will raise the staff member element "off" the page and present editing controls and green save button.
+<img src="http://i.imgur.com/DkHEX08.png" alt="" />
+Looks like we have a straightfoward list of staff members, a way to add new ones, edit, delete, the usual actions, as well as an Employee of the Month denoted by a colored star.
