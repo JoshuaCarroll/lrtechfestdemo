@@ -341,6 +341,7 @@ h1 .heading-action:hover i {
 .member__email:disabled {
   opacity: 1;
   padding: 0;
+  background: #fff;
 }
 
 .member__name {
