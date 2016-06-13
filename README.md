@@ -1,4 +1,6 @@
 # LRTechFest 2015
+
+[![Join the chat at https://gitter.im/JoshuaCarroll/lrtechfestdemo](https://badges.gitter.im/JoshuaCarroll/lrtechfestdemo.svg)](https://gitter.im/JoshuaCarroll/lrtechfestdemo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 _These files accompany a talk given by Brent Coney and Jordan Little at LRTechFest 2015._
 
 ---
